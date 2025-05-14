@@ -1,24 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// TypeScript 是给每一个变量,形参，函数 (入参和返回值) 定义明确的类型
+// 1. 能够提供更好的语法提示
+// 2. 能够检测出潜在的问题
+
+// 函数组件, Props 类型如何定义
+type ChildProps = {
+  age: number;
+  dom: React.ReactElement;
+};
+
+function Child({ age, dom }: ChildProps) {
+  return (
+    <div>
+      <div>{age.toString()}</div>
+      {dom}
+    </div>
+  );
+}
 
 function App() {
+  const dom = <div>dom</div>;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Child age={18} dom={dom} />
     </div>
   );
 }
