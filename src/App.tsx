@@ -1,34 +1,20 @@
 // Hook 相关的类型定义
 
-import { useReducer } from 'react';
-
-type ActionType = {
-  type: 'ADD'
-}
-
-const initialState = {
-  count: 0
-}
-
-function reducer(state: typeof initialState, action: ActionType) {
-  const newState = {...state};
-  if(action.type === 'ADD') {
-    newState.count = state.count + 1
-  }
-  return newState;
-}
+import { useEffect, useRef } from 'react';
 
 function App() {
 
-  const [ state, dispatch ] = useReducer(reducer, initialState)
+  const ref = useRef<number | null>(null);
+
+  useEffect(() => {
+    ref.current = window.setTimeout(() => {
+      console.log('timer')
+    }, 1000);
+    return clearTimeout(ref.current);
+  }, [])
 
   return (
-    <>
-      <button onClick={() => {dispatch({
-        type: 'ADD'
-      })}}>ADD</button>
-      <div>{state.count}</div>
-    </>
+    <div>Hello Ref Hook</div>
   );
 }
 
