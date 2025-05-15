@@ -1,28 +1,17 @@
-import React from 'react';
-// TypeScript 是给每一个变量,形参，函数 (入参和返回值) 定义明确的类型
-// 1. 能够提供更好的语法提示
-// 2. 能够检测出潜在的问题
+// Hook 相关的类型定义
 
-// 函数组件, Props 类型如何定义
-type ChildProps = {
-  age: number;
-  dom: React.ReactElement;
-};
+import { useState } from 'react';
 
-function Child({ age, dom }: ChildProps) {
-  return (
-    <div>
-      <div>{age.toString()}</div>
-      {dom}
-    </div>
-  );
+type User = {
+  name?: string;
 }
 
 function App() {
-  const dom = <div>dom</div>;
+  const [ user, setUser ] = useState<User>({} as User)
   return (
     <div>
-      <Child age={18} dom={dom} />
+      <button onClick={() => {setUser({name: 'Extron'})}}>button</button>
+      <div>{user?.name}</div>
     </div>
   );
 }
