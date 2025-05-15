@@ -1,36 +1,31 @@
-// Hook 相关的类型定义, forwardRef, useImperativeHandle
+// Hook 相关的类型定义, useContext
 
-import { ReactNode, useImperativeHandle, useRef, forwardRef } from "react";
+import { createContext, useContext, useState } from 'react'
 
-type PropsType = {
-  children: ReactNode
+type GenderType = {
+  value: 'male' | 'female'
 }
 
-type RefType = {
-  start: () => void;
+const GenderContext = createContext<GenderType>({value: 'male'})
+
+// ---------------------------------------------------
+
+const ChildComponent = () => {
+  const gender = useContext(GenderContext);
+  return <div>MJ is {gender.value}</div>
 }
 
-const Child = forwardRef<RefType, PropsType>((props, ref) => {
-  useImperativeHandle(ref, () => {
-    return {
-      start() {
-        console.log('start');
-      }
-    }
-  })
+// ---------------------------------------------------
 
-  return <div>{props.children}</div>
-})
-
-function App() {
-  const ref = useRef<RefType>(null!);
-
+const App = () => {
+  const [ gender, setGender ] = useState<GenderType>({value: 'male'});
+  
   return (
-    <>
-      <button onClick={() => {ref.current.start()}}>click</button>
-      <Child ref={ref}>React is the best!</Child>
-    </>
-  );
+    <GenderContext.Provider value={gender}>
+      <button onClick={() => {setGender({value: 'female'})}}>toggle</button>
+      <ChildComponent />
+    </GenderContext.Provider>
+  )
 }
 
 export default App;
