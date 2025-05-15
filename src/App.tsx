@@ -1,18 +1,34 @@
 // Hook 相关的类型定义
 
-import { useState } from 'react';
+import { useReducer } from 'react';
 
-type User = {
-  name?: string;
+type ActionType = {
+  type: 'ADD'
+}
+
+const initialState = {
+  count: 0
+}
+
+function reducer(state: typeof initialState, action: ActionType) {
+  const newState = {...state};
+  if(action.type === 'ADD') {
+    newState.count = state.count + 1
+  }
+  return newState;
 }
 
 function App() {
-  const [ user, setUser ] = useState<User>({} as User)
+
+  const [ state, dispatch ] = useReducer(reducer, initialState)
+
   return (
-    <div>
-      <button onClick={() => {setUser({name: 'Extron'})}}>button</button>
-      <div>{user?.name}</div>
-    </div>
+    <>
+      <button onClick={() => {dispatch({
+        type: 'ADD'
+      })}}>ADD</button>
+      <div>{state.count}</div>
+    </>
   );
 }
 
