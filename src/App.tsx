@@ -1,13 +1,29 @@
-// React 相关事件的TS类型定义
+import { useEffect, useRef } from 'react';
+import './styles/app.css';
 
 const App = () => {
+  const ref = useRef<HTMLDivElement>(null!);
 
-  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.value);
-  }
+  useEffect(() => {
+    ref.current.style.opacity = '1'
+  }, []);
 
-  return <input onChange={handleInputChange} />
-  
+  return (
+    <div ref={ref} className="page guide-page">
+      <img
+        alt="欢乐购"
+        className="main-pic" 
+        src={require('./images/halg_logo_icon_@2x.png')} 
+      />
+      <p className='title'>欢乐购</p>
+      <img
+        alt="欢乐购"
+        className="sub-pic" 
+        src={require('./images/slogn_word_icon_@2x.png')} 
+      />
+      <div className='iconfont arrow-icon'>&#xe60c;</div>
+    </div>
+  )
 }
 
 export default App;
